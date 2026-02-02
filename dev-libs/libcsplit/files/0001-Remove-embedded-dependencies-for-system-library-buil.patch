@@ -1,0 +1,91 @@
+From bbdb15d0208aeca1cfdedfec37a71b081415ebff Mon Sep 17 00:00:00 2001
+From: Dirk Tilger <dirk@systemication.com>
+Date: Mon, 2 Feb 2026 09:18:08 +0100
+Subject: [PATCH] Remove embedded dependencies for system library build
+
+---
+ Makefile.am  | 15 ---------------
+ configure.ac |  1 -
+ 2 files changed, 16 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 4f4173e..a966c65 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,15 +1,12 @@
+ ACLOCAL_AMFLAGS = -I m4
+-
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+ 	libcsplit \
+ 	po \
+ 	manuals \
+ 	tests \
+ 	msvscpp
+-
+ DPKG_FILES = \
+ 	dpkg/changelog \
+ 	dpkg/changelog.in \
+@@ -20,24 +17,19 @@ DPKG_FILES = \
+ 	dpkg/libcsplit-dev.install \
+ 	dpkg/libcsplit.install \
+ 	dpkg/source/format
+-
+ GETTEXT_FILES = \
+ 	config.rpath \
+ 	po/Makevars.in
+-
+ PKGCONFIG_FILES = \
+ 	libcsplit.pc.in
+-
+ SPEC_FILES = \
+ 	libcsplit.spec \
+ 	libcsplit.spec.in
+-
+ EXTRA_DIST = \
+ 	$(DPKG_FILES) \
+ 	$(GETTEXT_FILES) \
+ 	$(PKGCONFIG_FILES) \
+ 	$(SPEC_FILES)
+-
+ DISTCLEANFILES = \
+ 	config.status \
+ 	config.cache \
+@@ -47,20 +39,13 @@ DISTCLEANFILES = \
+ 	Makefile \
+ 	Makefile.in \
+ 	po/Makevars
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+-
+ pkgconfig_DATA = \
+ 	libcsplit.pc
+-
+ libtool: @LIBTOOL_DEPS@
+ 	cd $(srcdir) && $(SHELL) ./config.status --recheck
+-
+ lib: library
+-
+ library:
+ 	cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS)
+-	cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS)
+ 	cd $(srcdir)/libcsplit && $(MAKE) $(AM_MAKEFLAGS)
+ 	cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS)
+-
+diff --git a/configure.ac b/configure.ac
+index 1078378..f03b952 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -94,7 +94,6 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+ AC_CONFIG_FILES([libcsplit/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])
+-- 
+2.49.1
+

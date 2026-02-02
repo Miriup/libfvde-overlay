@@ -1,0 +1,91 @@
+From 6357f75392d481fb81cf50cf2be5bc0b7a08754c Mon Sep 17 00:00:00 2001
+From: Dirk Tilger <dirk@systemication.com>
+Date: Mon, 2 Feb 2026 09:18:07 +0100
+Subject: [PATCH] Remove embedded dependencies for system library build
+
+---
+ Makefile.am  | 15 ---------------
+ configure.ac |  1 -
+ 2 files changed, 16 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index d9b345d..b9c049f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,15 +1,12 @@
+ ACLOCAL_AMFLAGS = -I m4
+-
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+ 	libclocale \
+ 	po \
+ 	manuals \
+ 	tests \
+ 	msvscpp
+-
+ DPKG_FILES = \
+ 	dpkg/changelog \
+ 	dpkg/changelog.in \
+@@ -20,24 +17,19 @@ DPKG_FILES = \
+ 	dpkg/libclocale-dev.install \
+ 	dpkg/libclocale.install \
+ 	dpkg/source/format
+-
+ GETTEXT_FILES = \
+ 	config.rpath \
+ 	po/Makevars.in
+-
+ PKGCONFIG_FILES = \
+ 	libclocale.pc.in
+-
+ SPEC_FILES = \
+ 	libclocale.spec \
+ 	libclocale.spec.in
+-
+ EXTRA_DIST = \
+ 	$(DPKG_FILES) \
+ 	$(GETTEXT_FILES) \
+ 	$(PKGCONFIG_FILES) \
+ 	$(SPEC_FILES)
+-
+ DISTCLEANFILES = \
+ 	Makefile \
+ 	config.status \
+@@ -47,20 +39,13 @@ DISTCLEANFILES = \
+ 	libclocale.spec \
+ 	Makefile.in \
+ 	po/Makevars
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+-
+ pkgconfig_DATA = \
+ 	libclocale.pc
+-
+ libtool: @LIBTOOL_DEPS@
+ 	cd $(srcdir) && $(SHELL) ./config.status --recheck
+-
+ lib: library
+-
+ library:
+ 	cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS)
+-	cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS)
+ 	cd $(srcdir)/libclocale && $(MAKE) $(AM_MAKEFLAGS)
+ 	cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS)
+-
+diff --git a/configure.ac b/configure.ac
+index ccd66f7..7064df1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -94,7 +94,6 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+ AC_CONFIG_FILES([libclocale/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])
+-- 
+2.49.1
+

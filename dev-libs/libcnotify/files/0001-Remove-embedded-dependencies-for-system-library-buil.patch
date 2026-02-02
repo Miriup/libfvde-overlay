@@ -1,0 +1,91 @@
+From 9ef307a166edddf16eb654407e2cdf8c0ced16c8 Mon Sep 17 00:00:00 2001
+From: Dirk Tilger <dirk@systemication.com>
+Date: Mon, 2 Feb 2026 09:18:08 +0100
+Subject: [PATCH] Remove embedded dependencies for system library build
+
+---
+ Makefile.am  | 15 ---------------
+ configure.ac |  1 -
+ 2 files changed, 16 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 44cf3f8..cd1d78d 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,15 +1,12 @@
+ ACLOCAL_AMFLAGS = -I m4
+-
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+ 	libcnotify \
+ 	po \
+ 	manuals \
+ 	tests \
+ 	msvscpp
+-
+ DPKG_FILES = \
+ 	dpkg/changelog \
+ 	dpkg/changelog.in \
+@@ -20,24 +17,19 @@ DPKG_FILES = \
+ 	dpkg/libcnotify-dev.install \
+ 	dpkg/libcnotify.install \
+ 	dpkg/source/format
+-
+ GETTEXT_FILES = \
+ 	config.rpath \
+ 	po/Makevars.in
+-
+ PKGCONFIG_FILES = \
+ 	libcnotify.pc.in
+-
+ SPEC_FILES = \
+ 	libcnotify.spec \
+ 	libcnotify.spec.in
+-
+ EXTRA_DIST = \
+ 	$(DPKG_FILES) \
+ 	$(GETTEXT_FILES) \
+ 	$(PKGCONFIG_FILES) \
+ 	$(SPEC_FILES)
+-
+ DISTCLEANFILES = \
+ 	Makefile \
+ 	config.status \
+@@ -47,20 +39,13 @@ DISTCLEANFILES = \
+ 	libcnotify.spec \
+ 	Makefile.in \
+ 	po/Makevars
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+-
+ pkgconfig_DATA = \
+ 	libcnotify.pc
+-
+ libtool: @LIBTOOL_DEPS@
+ 	cd $(srcdir) && $(SHELL) ./config.status --recheck
+-
+ lib: library
+-
+ library:
+ 	cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS)
+-	cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS)
+ 	cd $(srcdir)/libcnotify && $(MAKE) $(AM_MAKEFLAGS)
+ 	cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS)
+-
+diff --git a/configure.ac b/configure.ac
+index cb60f9f..8f3f79d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -91,7 +91,6 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+ AC_CONFIG_FILES([libcnotify/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])
+-- 
+2.49.1
+

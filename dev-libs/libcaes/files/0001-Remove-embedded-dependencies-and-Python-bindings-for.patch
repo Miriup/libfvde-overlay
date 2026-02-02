@@ -1,0 +1,103 @@
+From 58390897718510e8a6333bece4eefe54a148ab2d Mon Sep 17 00:00:00 2001
+From: Dirk Tilger <dirk@systemication.com>
+Date: Mon, 2 Feb 2026 09:35:32 +0100
+Subject: [PATCH] Remove embedded dependencies and Python bindings for system
+ library build
+
+---
+ Makefile.am  | 16 ----------------
+ configure.ac |  2 --
+ 2 files changed, 18 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 8a3cf22..771317c 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,17 +1,13 @@
+ ACLOCAL_AMFLAGS = -I m4
+-
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+ 	libcaes \
+-	pycaes \
+ 	po \
+ 	manuals \
+ 	tests \
+ 	ossfuzz \
+ 	msvscpp
+-
+ DPKG_FILES = \
+ 	dpkg/changelog \
+ 	dpkg/changelog.in \
+@@ -23,31 +19,25 @@ DPKG_FILES = \
+ 	dpkg/libcaes-dev.install \
+ 	dpkg/libcaes-python3.install \
+ 	dpkg/source/format
+-
+ GETTEXT_FILES = \
+ 	config.rpath \
+ 	po/Makevars.in
+-
+ PKGCONFIG_FILES = \
+ 	libcaes.pc.in
+-
+ SETUP_PY_FILES = \
+ 	pyproject.toml \
+ 	setup.cfg \
+ 	setup.cfg.in \
+ 	setup.py
+-
+ SPEC_FILES = \
+ 	libcaes.spec \
+ 	libcaes.spec.in
+-
+ EXTRA_DIST = \
+ 	$(DPKG_FILES) \
+ 	$(GETTEXT_FILES) \
+ 	$(PKGCONFIG_FILES) \
+ 	$(SETUP_PY_FILES) \
+ 	$(SPEC_FILES)
+-
+ DISTCLEANFILES = \
+ 	config.status \
+ 	config.cache \
+@@ -57,20 +47,14 @@ DISTCLEANFILES = \
+ 	Makefile \
+ 	Makefile.in \
+ 	po/Makevars
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+-
+ pkgconfig_DATA = \
+ 	libcaes.pc
+-
+ libtool: @LIBTOOL_DEPS@
+ 	cd $(srcdir) && $(SHELL) ./config.status --recheck
+-
+ lib: library
+-
+ library:
+ 	(cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/libcaes && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS))
+-
+diff --git a/configure.ac b/configure.ac
+index 4f7a6ae..eb625b1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -109,9 +109,7 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+ AC_CONFIG_FILES([libcaes/Makefile])
+-AC_CONFIG_FILES([pycaes/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])
+ AC_CONFIG_FILES([manuals/Makefile])
+-- 
+2.49.1
+

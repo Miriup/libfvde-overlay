@@ -1,0 +1,97 @@
+From 97efc5d5e29571a8acfd6b6095da31559dcbf049 Mon Sep 17 00:00:00 2001
+From: Dirk Tilger <dirk@systemication.com>
+Date: Mon, 2 Feb 2026 09:18:13 +0100
+Subject: [PATCH] Remove embedded dependencies for system library build
+
+---
+ Makefile.am  | 19 -------------------
+ configure.ac |  3 ---
+ 2 files changed, 22 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 509bb3c..af0d29f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,17 +1,12 @@
+ ACLOCAL_AMFLAGS = -I m4
+-
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+-	libcthreads \
+-	libcdata \
+ 	libfcache \
+ 	po \
+ 	manuals \
+ 	tests \
+ 	msvscpp
+-
+ DPKG_FILES = \
+ 	dpkg/changelog \
+ 	dpkg/changelog.in \
+@@ -22,24 +17,19 @@ DPKG_FILES = \
+ 	dpkg/libfcache-dev.install \
+ 	dpkg/libfcache.install \
+ 	dpkg/source/format
+-
+ GETTEXT_FILES = \
+ 	config.rpath \
+ 	po/Makevars.in
+-
+ PKGCONFIG_FILES = \
+ 	libfcache.pc.in
+-
+ SPEC_FILES = \
+ 	libfcache.spec \
+ 	libfcache.spec.in
+-
+ EXTRA_DIST = \
+ 	$(DPKG_FILES) \
+ 	$(GETTEXT_FILES) \
+ 	$(PKGCONFIG_FILES) \
+ 	$(SPEC_FILES)
+-
+ DISTCLEANFILES = \
+ 	config.status \
+ 	config.cache \
+@@ -49,22 +39,13 @@ DISTCLEANFILES = \
+ 	Makefile \
+ 	Makefile.in \
+ 	po/Makevars
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+-
+ pkgconfig_DATA = \
+ 	libfcache.pc
+-
+ libtool: @LIBTOOL_DEPS@
+ 	cd $(srcdir) && $(SHELL) ./config.status --recheck
+-
+ lib: library
+-
+ library:
+ 	(cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS))
+-	(cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS))
+-	(cd $(srcdir)/libcthreads && $(MAKE) $(AM_MAKEFLAGS))
+-	(cd $(srcdir)/libcdata && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/libfcache && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS))
+-
+diff --git a/configure.ac b/configure.ac
+index 054a11f..de641c6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -97,9 +97,6 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+-AC_CONFIG_FILES([libcthreads/Makefile])
+-AC_CONFIG_FILES([libcdata/Makefile])
+ AC_CONFIG_FILES([libfcache/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])
+-- 
+2.49.1
+

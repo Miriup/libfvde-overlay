@@ -1,0 +1,120 @@
+From aa737073e3e141a5b70ff3bc5a038e2f1977ff23 Mon Sep 17 00:00:00 2001
+From: Dirk Tilger <dirk@systemication.com>
+Date: Mon, 2 Feb 2026 09:34:53 +0100
+Subject: [PATCH] Remove embedded dependencies and tools for system library
+ build
+
+---
+ Makefile.am  | 24 ------------------------
+ configure.ac | 10 ----------
+ 2 files changed, 34 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index ba7c0ca..7bd3d62 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,25 +1,13 @@
+ ACLOCAL_AMFLAGS = -I m4
+-
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+-	libcthreads \
+ 	libhmac \
+-	libclocale \
+-	libcnotify \
+-	libcsplit \
+-	libuna \
+-	libcfile \
+-	libcpath \
+-	hmactools \
+-	pyhmac \
+ 	po \
+ 	manuals \
+ 	tests \
+ 	ossfuzz \
+ 	msvscpp
+-
+ DPKG_FILES = \
+ 	dpkg/changelog \
+ 	dpkg/changelog.in \
+@@ -32,31 +20,25 @@ DPKG_FILES = \
+ 	dpkg/libhmac-python3.install \
+ 	dpkg/libhmac-tools.install \
+ 	dpkg/source/format
+-
+ GETTEXT_FILES = \
+ 	config.rpath \
+ 	po/Makevars.in
+-
+ PKGCONFIG_FILES = \
+ 	libhmac.pc.in
+-
+ SETUP_PY_FILES = \
+ 	pyproject.toml \
+ 	setup.cfg \
+ 	setup.cfg.in \
+ 	setup.py
+-
+ SPEC_FILES = \
+ 	libhmac.spec \
+ 	libhmac.spec.in
+-
+ EXTRA_DIST = \
+ 	$(DPKG_FILES) \
+ 	$(GETTEXT_FILES) \
+ 	$(PKGCONFIG_FILES) \
+ 	$(SETUP_PY_FILES) \
+ 	$(SPEC_FILES)
+-
+ DISTCLEANFILES = \
+ 	config.status \
+ 	config.cache \
+@@ -66,21 +48,15 @@ DISTCLEANFILES = \
+ 	Makefile \
+ 	Makefile.in \
+ 	po/Makevars
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+-
+ pkgconfig_DATA = \
+ 	libhmac.pc
+-
+ libtool: @LIBTOOL_DEPS@
+ 	cd $(srcdir) && $(SHELL) ./config.status --recheck
+-
+ lib: library
+-
+ library:
+ 	(cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/libcthreads && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/libhmac && $(MAKE) $(AM_MAKEFLAGS))
+ 	(cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS))
+-
+diff --git a/configure.ac b/configure.ac
+index 32d5596..e89e418 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -149,17 +149,7 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+-AC_CONFIG_FILES([libcthreads/Makefile])
+ AC_CONFIG_FILES([libhmac/Makefile])
+-AC_CONFIG_FILES([pyhmac/Makefile])
+-AC_CONFIG_FILES([libclocale/Makefile])
+-AC_CONFIG_FILES([libcnotify/Makefile])
+-AC_CONFIG_FILES([libcsplit/Makefile])
+-AC_CONFIG_FILES([libuna/Makefile])
+-AC_CONFIG_FILES([libcfile/Makefile])
+-AC_CONFIG_FILES([libcpath/Makefile])
+-AC_CONFIG_FILES([hmactools/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])
+ AC_CONFIG_FILES([manuals/Makefile])
+-- 
+2.49.1
+
