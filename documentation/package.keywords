@@ -1,0 +1,21 @@
+# Accept all live (-9999) ebuilds from libfvde-overlay
+dev-libs/libcerror::libfvde-overlay **
+dev-libs/libcthreads::libfvde-overlay **
+dev-libs/libcdata::libfvde-overlay **
+dev-libs/libclocale::libfvde-overlay **
+dev-libs/libcnotify::libfvde-overlay **
+dev-libs/libcsplit::libfvde-overlay **
+dev-libs/libuna::libfvde-overlay **
+dev-libs/libcfile::libfvde-overlay **
+dev-libs/libcpath::libfvde-overlay **
+dev-libs/libbfio::libfvde-overlay **
+dev-libs/libfcache::libfvde-overlay **
+dev-libs/libfdata::libfvde-overlay **
+dev-libs/libfguid::libfvde-overlay **
+dev-libs/libfplist::libfvde-overlay **
+dev-libs/libfvalue::libfvde-overlay **
+dev-libs/libhmac::libfvde-overlay **
+dev-libs/libcaes::libfvde-overlay **
+dev-libs/libfvde::libfvde-overlay **
+dev-libs/libfdatetime::libfvde-overlay **
+dev-libs/libfwnt::libfvde-overlay **
