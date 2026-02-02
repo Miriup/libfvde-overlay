@@ -9,9 +9,17 @@ DESCRIPTION="Library for HMAC functions"
 HOMEPAGE="https://github.com/libyal/libhmac"
 EGIT_REPO_URI="https://github.com/libyal/${PN}.git"
 
+# For dated releases (e.g., 20240101), use the date as git tag
+# Hard link libhmac-9999.ebuild to libhmac-YYYYMMDD.ebuild for releases
+if [[ ${PV} == 9999 ]]; then
+	KEYWORDS=""
+else
+	EGIT_COMMIT="${PV}"
+	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+fi
+
 LICENSE="LGPL-3+"
 SLOT="0"
-KEYWORDS=""
 IUSE="debug nls static-libs"
 
 DEPEND="

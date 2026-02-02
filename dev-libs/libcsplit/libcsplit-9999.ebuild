@@ -9,9 +9,17 @@ DESCRIPTION="Library for cross-platform C split string functions"
 HOMEPAGE="https://github.com/libyal/libcsplit"
 EGIT_REPO_URI="https://github.com/libyal/${PN}.git"
 
+# For dated releases (e.g., 20240101), use the date as git tag
+# Hard link libcsplit-9999.ebuild to libcsplit-YYYYMMDD.ebuild for releases
+if [[ ${PV} == 9999 ]]; then
+	KEYWORDS=""
+else
+	EGIT_COMMIT="${PV}"
+	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+fi
+
 LICENSE="LGPL-3+"
 SLOT="0"
-KEYWORDS=""
 IUSE="debug nls static-libs"
 
 DEPEND="
